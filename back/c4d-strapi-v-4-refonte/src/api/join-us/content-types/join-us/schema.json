@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "join_uses",
+  "info": {
+    "singularName": "join-us",
+    "pluralName": "join-uses",
+    "displayName": "JoinUs",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dz": {
+      "type": "dynamiczone",
+      "components": [
+        "c4d-components.vertical-space",
+        "c4d-components.carousel-type-linear",
+        "c4d-components.ellipse",
+        "c4d-components.carousel-slide-job-offres",
+        "c4d-components.contact-form"
+      ]
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

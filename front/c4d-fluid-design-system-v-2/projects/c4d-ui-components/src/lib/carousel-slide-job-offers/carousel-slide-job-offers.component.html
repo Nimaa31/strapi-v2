@@ -1,0 +1,42 @@
+<div class="w-full min-[1600px]:flex justify-center my-4">
+    <div class="min-[1600px]:w-[1600px] relative space-y-6">
+    <p [innerHTML]="title" [ngStyle]="{'color': titleColor}" class="text-center text-2xl lg:text-3xl xl:text-4xl font-bold"></p>
+    <swiper-container centered-slides="true" slides-per-view="auto" effect="coverflow" coverflow-effect-slide-shadows="false" speed="1000" pagination="true" pagination-clickable="true" grab-cursor="true">
+        @for (slide of slides; track slide) {
+        <swiper-slide>
+            <div #slideElement [ngStyle]="{'justify-content': isCardCenter ? 'center' : slide.justifyContent}" [ngClass]="isCardCenter ? 'space-x-12 xl:space-x-16 2xl:space-x-28' : slide.slideClasses" class="flex">
+                @for (card of slide; track card) {
+                <div #card [ngStyle]="{'margin-left': card.cardSpacing}" (click)="onClickJobOffer(card.link)" class="w-[260px] h-[230px] sm:w-[250px] sm:h-[222px] md:w-[260px] md:h-[230px] min-[890px]:w-[300px] min-[890px]:h-[266px] lg:w-[260px] lg:h-[230px] 2xl:w-[350px] 2xl:h-[310px] cursor-pointer">
+                    <div class="h-[38%] rounded-t-2xl 2xl:rounded-t-3xl p-5" [ngStyle]="{'background-color': cardOpacity ? headerCardBackgroundColor : inputBackgroundColor}">
+                        <p [innerHTML]="card.title" [ngStyle]="{'color': jobTitleColor}" class="text-center text-xl 2xl:text-2xl" ></p>
+                        @if (card.requiredEducationLevel) {
+                            <div class="px-2 py-1 border rounded-full flex flex-row" [ngStyle]="{'background-color': jobBadgeBackgroundColor, 'border-color': jobHighlightedColor, 'width': badgeWidth}">
+                                <div #badge class="inline-flex space-x-3">
+                                    <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.5005 0C10.2347 0 9.97222 0.0574218 9.72285 0.168164L0.518943 4.32305C0.207224 4.4666 0.000505059 4.83574 0.000505059 5.25C0.000505059 5.66426 0.207224 6.0334 0.518943 6.17695L2.41879 7.03418C1.88066 8.09238 1.5755 9.34336 1.5755 10.66V11.8125C1.5755 12.9773 1.22113 14.1791 0.843786 15.1266C0.630505 15.6598 0.387693 16.1848 0.105505 16.6688C0.00050506 16.8451 -0.0290262 17.0748 0.0300363 17.284C0.0890988 17.4932 0.226911 17.649 0.397536 17.7023L2.49754 18.3586C2.63535 18.4037 2.783 18.3709 2.90441 18.2766C3.02582 18.1822 3.11113 18.0264 3.13738 17.85C3.41957 16.0945 3.27847 14.5195 3.06847 13.3916C2.96347 12.8092 2.82238 12.2145 2.6255 11.6689V10.66C2.6255 9.42129 2.96019 8.25234 3.54097 7.31719C3.96425 6.68145 4.51222 6.16875 5.15535 5.85293L10.3069 3.32227C10.576 3.19102 10.8811 3.35508 10.9861 3.69141C11.0911 4.02773 10.9599 4.40918 10.6908 4.54043L5.53926 7.07109C5.13238 7.27207 4.77472 7.57969 4.48269 7.95703L9.71957 10.3195C9.96894 10.4303 10.2314 10.4877 10.4972 10.4877C10.763 10.4877 11.0255 10.4303 11.2749 10.3195L20.4821 6.17695C20.7938 6.0375 21.0005 5.66426 21.0005 5.25C21.0005 4.83574 20.7938 4.4666 20.4821 4.32305L11.2782 0.168164C11.0288 0.0574218 10.7663 0 10.5005 0ZM4.2005 15.4219C4.2005 16.8697 7.02238 18.375 10.5005 18.375C13.9786 18.375 16.8005 16.8697 16.8005 15.4219L16.2985 9.4582L11.6325 11.5664C11.2683 11.7305 10.8844 11.8125 10.5005 11.8125C10.1166 11.8125 9.72941 11.7305 9.36847 11.5664L4.70254 9.4582L4.2005 15.4219Z" [attr.fill]="jobHighlightedColor"/>
+                                    </svg>
+                                    <p class="font-medium text-sm text-[#fff]">{{card.requiredEducationLevel}}</p>   
+                                </div>
+                                
+                            </div>
+                        }
+                    </div>
+                    <div class="w-full h-[62%] flex flex-col items-center justify-around rounded-b-2xl 2xl:rounded-b-3xl p-5" [ngStyle]="{'background-color': cardOpacity ? outputBackgroundColor : inputBackgroundColor}">
+                        <p [innerHTML]="card.jobDescription" [ngStyle]="{'color': jobDescriptionColor}" class="text-center text-base 2xl:text-xl font-medium"></p>
+                    </div>
+                </div>
+                }
+            </div>
+        </swiper-slide>
+        }
+    </swiper-container>
+    @if (screenSize >= 500 && showLinearGradient) {
+        <div class="w-40 h-full sm:w-32 lg:w-36 xl:w-40 2xl:w-44 absolute top-0 right-0 z-10" style="pointer-events: none;">
+            <div [ngStyle]="{'background-image': rightLinearGradient}" class="w-full h-full opacity-80"></div>
+        </div>
+        <div class="w-40 h-full sm:w-32 lg:w-36 xl:w-40 2xl:w-44 absolute top-0 left-0 z-10" style="pointer-events: none;">
+            <div [ngStyle]="{'background-image': leftLinearGradient}" class="w-full h-full bg-gradient-to-r from-[#0F1927] to-[transparent] opacity-80"></div>
+        </div>
+    }
+</div>
+</div>
